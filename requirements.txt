@@ -11,3 +11,4 @@ openai
 numpy<2.0
 protobuf==3.20.3
 pysqlite3-binary
+pypdf==3.15.0  
