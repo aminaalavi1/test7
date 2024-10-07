@@ -85,15 +85,9 @@ ragproxyagent = RetrieveUserProxyAgent(
 )
 
 # Function to initiate the chat
-def start_chat(user_message=None):
-    # If there is a user message, include it in the context; otherwise, start a new chat
-    context = {"user_message": user_message} if user_message else {}
-    
-    # Start or continue chat with the provided context
-    ragproxyagent.initiate_chat(
-        assistant,
-        context=context
-    )
+def start_chat():
+    # Start or continue chat without any initial user message
+    ragproxyagent.initiate_chat(assistant)
 
 # Session state to store the chat history
 if "messages" not in st.session_state:
@@ -119,7 +113,7 @@ if user_input:
         st.markdown(user_input)
 
     # Process the response and initiate the chat
-    start_chat(user_input)
+    ragproxyagent.initiate_chat(assistant)
 
     # Retrieve the assistant's response
     assistant_response = assistant.last_message(ragproxyagent)['content']
