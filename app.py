@@ -20,11 +20,6 @@ EDAMAM_APP_ID = "fcbbd9b3"
 
 config_list = [{"model": "gpt-3.5-turbo", "api_key": OPENAI_API_KEY}]
 
-# Update the code_execution_config to disable Docker usage
-code_execution_config = {
-    "use_docker": False
-}
-
 # Define the Edamam API agent to retrieve recipes
 class EdamamAPIAgent:
     def __init__(self, app_id, app_key):
@@ -57,12 +52,12 @@ class EdamamAPIAgent:
 # Create the Edamam agent
 edamam_agent = EdamamAPIAgent(EDAMAM_APP_ID, EDAMAM_APP_KEY)
 
-# Create the main assistant agent for meal planning with the updated config
+# Create the main assistant agent for meal planning
 assistant = RetrieveAssistantAgent(
     name="MealPlanAssistant",
     system_message='''You are a helpful meal planning assistant. Greet the user, ask for their information (name, zip, chronic disease, cuisine preference, and ingredient dislikes). Tailor the meal plan based on the customer's chronic disease and preferences, and use the Edamam API to find specific recipes that match the customer's needs.''',
-    llm_config={"config_list": config_list},
-    code_execution_config=code_execution_config
+    llm_config={"config_list": config_list}, 
+    code_execution_config={"use_docker": False},
 )
 
 # Create a RetrieveUserProxyAgent for document-based retrieval
@@ -85,7 +80,8 @@ ragproxyagent = RetrieveUserProxyAgent(
         "custom_callback": label_rag_response
     },
     llm_config={"config_list": config_list},
-    function_map={"search_recipes": edamam_agent.search_recipes}
+    function_map={"search_recipes": edamam_agent.search_recipes}, 
+    code_execution_config={"use_docker": False},
 )
 
 # Function to initiate the chat
