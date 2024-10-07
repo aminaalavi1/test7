@@ -57,7 +57,7 @@ assistant = RetrieveAssistantAgent(
     name="MealPlanAssistant",
     system_message='''You are a helpful meal planning assistant. Greet the user, ask for their information (name, zip, chronic disease, cuisine preference, and ingredient dislikes). Tailor the meal plan based on the customer's chronic disease and preferences, and use the Edamam API to find specific recipes that match the customer's needs.''',
     llm_config={"config_list": config_list}, 
-    code_execution_config={"use_docker": False},
+    code_execution_config={"use_docker": False}
 )
 
 # Create a RetrieveUserProxyAgent for document-based retrieval
@@ -83,6 +83,7 @@ ragproxyagent = RetrieveUserProxyAgent(
     function_map={"search_recipes": edamam_agent.search_recipes}, 
     code_execution_config={"use_docker": False},
      "auto_create_collection": True ,
+     "overwrite": True 
 )
 
 # Function to initiate the chat
