@@ -85,9 +85,12 @@ ragproxyagent = RetrieveUserProxyAgent(
 )
 
 # Function to initiate the chat
-def start_chat():
-    # Start or continue chat without any initial user message
-    ragproxyagent.initiate_chat(assistant)
+def start_chat(problem_description="Provide meal planning guidance for a chronic disease patient.With the name, zip, chronic disease, cuisine preference, and ingredient dislikes, Tailor the meal plan based on the customer's chronic disease and preferences, and use the Edamam API to find specific recipes that match the customer's needs"):
+    # Start the chat with a specific problem description
+    ragproxyagent.initiate_chat(
+        assistant,
+        problem=problem_description
+    )
 
 # Session state to store the chat history
 if "messages" not in st.session_state:
@@ -113,7 +116,7 @@ if user_input:
         st.markdown(user_input)
 
     # Process the response and initiate the chat
-    ragproxyagent.initiate_chat(assistant)
+    start_chat(problem_description=user_input)
 
     # Retrieve the assistant's response
     assistant_response = assistant.last_message(ragproxyagent)['content']
