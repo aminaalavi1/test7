@@ -83,7 +83,7 @@ ragproxyagent = RetrieveUserProxyAgent(
     function_map={"search_recipes": edamam_agent.search_recipes}, 
     code_execution_config={"use_docker": False},
 #     auto_create_collection=True,  # Remove the quotes to make it a proper keyword argument
-    overwrite=True  # Same here, remove the quotes
+#    overwrite=True  # Same here, remove the quotes
 )
 
 # Function to initiate the chat
