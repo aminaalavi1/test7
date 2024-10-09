@@ -77,7 +77,9 @@ ragproxyagent = RetrieveUserProxyAgent(
         "chunk_token_size": 1000,
         "model": config_list[0]["model"],
         "chunk_mode": "multi_lines",
-        "custom_callback": label_rag_response
+        "custom_callback": label_rag_response,
+        "get_or_create": True,  # set to False if you don't want to reuse an existing collection
+        "overwrite": True, 
     },
     llm_config={"config_list": config_list},
     function_map={"search_recipes": edamam_agent.search_recipes}, 
